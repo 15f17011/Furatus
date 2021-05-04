@@ -8,16 +8,27 @@
     <script src="js/pixi.min.js"></script>
     <script>
         let app;
+        let player;
         
         window.onload = function() {
             let app = new PIXI.Application(
                 {
                     width: 800,
                     height: 600,
-                    backgroundColour: 000000
+                    backgroundColor: 0x808080
                 }
             );
             document.body.appendChild(app.view);
+
+            //creating an avatar for the player
+            avatar = new PIXI.Sprite.from("assets/avatar.png");
+            avatar.anchor.set(0.5);
+            avatar.x = app.view.width / 2;
+            avatar.y = app.view.height / 2;
+
+            app.stage.addChild(avatar);
+
+
         }
 
     </script>
