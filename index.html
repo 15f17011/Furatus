@@ -8,7 +8,8 @@
     <script src="js/pixi.min.js"></script>
     <script>
         let app;
-        let player;
+        let avatar;
+        let keys = {};
         
         window.onload = function() {
             let app = new PIXI.Application(
@@ -21,13 +22,46 @@
             document.body.appendChild(app.view);
 
             //creating an avatar for the player
-            avatar = new PIXI.Sprite.from("assets/avatar.png");
+            avatar = new PIXI.Sprite.from("assets/avatar.jpeg");
             avatar.anchor.set(0.5);
             avatar.x = app.view.width / 2;
             avatar.y = app.view.height / 2;
 
             app.stage.addChild(avatar);
 
+            //keyboard event handlers
+            window.addEventListener("keydown", keysDown);
+            window.addEventListener("keyup", keysUp);
+
+            //game updates every tick
+            app.ticker.add(gameLoop);
+
+            function keysDown(e) {
+                keys[e.keyCode] = true;
+            }
+
+            function keysUp(e) {
+                keys[e.keyCode] = false;
+            }
+            
+            function gameLoop(){
+                //W makes the player go up the screen by increasing the y position by 5 every tick.
+                if (keys["87"]) {
+                    avatar.y -= 5;
+                }
+                //S          
+                if (keys["83"]) {
+                    avatar.y += 5;
+                }
+                //A
+                if (keys["65"]) {
+                    avatar.x -= 5;
+                }
+                //D
+                if (keys["68"]) {
+                    avatar.x += 5;
+                }
+            }
 
         }
 
