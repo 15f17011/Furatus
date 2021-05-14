@@ -39,7 +39,7 @@ let keys = {};
         function gameLoop(){
             //Z makes the player go up the screen by increasing the y position by 5 every tick.
             if (keys["90"]) {
-                avatar.y -= 5;
+                avatar.y -= 5; //update this to work with gravity
             }
             //X          
             if (keys["88"]) {
