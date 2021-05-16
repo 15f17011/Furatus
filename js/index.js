@@ -36,6 +36,7 @@ let keys = {};
             keys[e.keyCode] = false;
         }
         
+        let gravity = 0.9
         function jump() {
             let timerUpID = setInterval( function () { //the setInterval method allows me to create a function that runs every certain interval of time
                 
@@ -45,10 +46,11 @@ let keys = {};
                         if(avatar.y > 570) {
                             clearInterval(timerDownID)
                         }
-                        bottom += 2
+                        avatar.y += 2
                     }, 20)
                 }  
                 avatar.y -= 5
+                avatar.y = avatar.y * 0.9
             }, 20)
         }
             
