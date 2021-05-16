@@ -15,8 +15,8 @@ let keys = {};
         //creating an avatar for the player
         avatar = new PIXI.Sprite.from("assets/protagonist.png");
         avatar.anchor.set(0.5);
-        avatar.x = app.view.width / 2;
-        avatar.y = app.view.height / 2;
+        avatar.x = 27
+        avatar.y = 570
 
         app.stage.addChild(avatar);
 
@@ -35,11 +35,24 @@ let keys = {};
         function keysUp(e) {
             keys[e.keyCode] = false;
         }
+        
+        function jump() {
+            let timerUpID = setInterval( function () { //the setInterval method allows me to create a function that runs every certain interval of time
+                if (avatar.y > 250) {
+                    clearInterval(timerUpID)
+                    let timerDownID = setInterval( function (){
+                        avatar.y -= 5
+                    }, 20)
+                }
+                
+                avatar.y += 30
+            }, 20)
+        }
             
         function gameLoop(){
             //Z makes the player go up the screen by increasing the y position by 5 every tick.
             if (keys["90"]) {
-                avatar.y -= 5; //update this to work with gravity
+                jump()
             }
             //X          
             if (keys["88"]) {
