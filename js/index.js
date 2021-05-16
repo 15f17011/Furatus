@@ -18,6 +18,7 @@ let keys = {};
         avatar.x = 27
         avatar.y = 570
 
+
         app.stage.addChild(avatar);
 
         //keyboard event handlers
@@ -28,7 +29,6 @@ let keys = {};
         app.ticker.add(gameLoop);
         //detects when key is pressed and outputs the key iD
         function keysDown(e) {
-            console.log(e.keyCode);
             keys[e.keyCode] = true;
         }
 
@@ -38,14 +38,17 @@ let keys = {};
         
         function jump() {
             let timerUpID = setInterval( function () { //the setInterval method allows me to create a function that runs every certain interval of time
-                if (avatar.y > 250) {
+                
+                if (avatar.y < 350) {
                     clearInterval(timerUpID)
                     let timerDownID = setInterval( function (){
-                        avatar.y -= 5
+                        if(avatar.y > 570) {
+                            clearInterval(timerDownID)
+                        }
+                        bottom += 2
                     }, 20)
-                }
-                
-                avatar.y += 30
+                }  
+                avatar.y -= 5
             }, 20)
         }
             
