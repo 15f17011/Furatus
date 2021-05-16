@@ -27,7 +27,7 @@ let keys = {};
 
         //game updates every tick
         app.ticker.add(gameLoop);
-        //detects when key is pressed and outputs the key iD
+        //detects when key is pressed 
         function keysDown(e) {
             keys[e.keyCode] = true;
         }
@@ -36,21 +36,24 @@ let keys = {};
             keys[e.keyCode] = false;
         }
         
-        let gravity = 0.9
+        let gravity = 0.9 
+        let isJumping = false //prevents double jump 
         function jump() {
+            if(isJumping) return
             let timerUpID = setInterval( function () { //the setInterval method allows me to create a function that runs every certain interval of time
-                
-                if (avatar.y < 350) {
-                    clearInterval(timerUpID)
-                    let timerDownID = setInterval( function (){
-                        if(avatar.y > 570) {
-                            clearInterval(timerDownID)
+                if (avatar.y < 450) {
+                    clearInterval(timerUpID) // stops permanent jumping 
+                    let timerDownID = setInterval( function () {
+                        if(avatar.y > 570) { 
+                            clearInterval(timerDownID) //stops permanent fall
+                            isJumping = false
                         }
                         avatar.y += 2
                     }, 20)
                 }  
+                isJumping = true
                 avatar.y -= 5
-                avatar.y = avatar.y * 0.9
+                avatar.y = avatar.y * gravity //gradually decreases the height following a jump
             }, 20)
         }
             
