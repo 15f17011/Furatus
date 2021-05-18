@@ -1,26 +1,25 @@
 let app;
 let avatar;
+
+window.onload = function() { //creates the canvas
+    let app = new PIXI.Application(
+        {
+            width: 800,
+            height: 600,
+            backgroundColor: 0x808080
+        }
+    );
+    document.body.appendChild(app.view);
+
+    //creating an avatar for the player
+    avatar = new PIXI.Sprite.from("assets/protagonist.png");
+    avatar.anchor.set(0.5);
+    avatar.x = 27
+    avatar.y = 570
+
+    app.stage.addChild(avatar);
+
 let keys = {};
-
-    window.onload = function() {
-        let app = new PIXI.Application(
-            {
-                width: 800,
-                height: 600,
-                backgroundColor: 0x808080
-            }
-        );
-        document.body.appendChild(app.view);
-
-        //creating an avatar for the player
-        avatar = new PIXI.Sprite.from("assets/protagonist.png");
-        avatar.anchor.set(0.5);
-        avatar.x = 27
-        avatar.y = 570
-
-
-        app.stage.addChild(avatar);
-
         //keyboard event handlers
         window.addEventListener("keydown", keysDown);
         window.addEventListener("keyup", keysUp);
@@ -48,13 +47,33 @@ let keys = {};
                             clearInterval(timerDownID) //stops permanent fall
                             isJumping = false
                         }
-                        avatar.y += 2
+                        avatar.y += 4
                     }, 20)
                 }  
                 isJumping = true
                 avatar.y -= 5
                 avatar.y = avatar.y * gravity //gradually decreases the height following a jump
             }, 20)
+        }
+
+        let bullets = [];
+        let bulletSpeed = 10;
+
+        function fire() {
+            //add shooting function here
+            console.log("Fire!");
+            let bullet = createBullet();
+            bullets.push(bullet);
+        }
+        function createBullet() { // is responsible for creating the bullets
+            let bullet = new PIXI.Sprite.from("assets/protagbullet.png");
+            bullet.anchor.set(0.5);
+            bullet.x = avatar.x;
+            bullet.y = avatar.y;
+            bullet.speed = bulletSpeed;
+            app.stage.addChild(bullet);
+
+            return bullet;
         }
             
         function gameLoop(){
@@ -64,7 +83,7 @@ let keys = {};
             }
             //X          
             if (keys["88"]) {
-                //add shooting here
+                fire()
             }
             //Left arrow
             if (keys["37"]) {
