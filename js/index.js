@@ -76,6 +76,19 @@ function createBullet() { // is responsible for creating the bullets
 function updateBullets() {
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].position.x += bullets[i].speed;
+
+        if(bullets[i].position.x > 800) {
+            bullets[i].dead = true;
+        }
+    }
+
+    
+    for(let i = 0; i < bullets.length; i++) {
+        if (bullets[i].dead) {
+            app.stage.removeChild(bullets[i]);
+            bullets.splice(i, 1);
+        }
+
     }
 }
 
