@@ -75,8 +75,15 @@ let keys = {};
 
             return bullet;
         }
-            
+        
+        function updateBullets(){
+            for (let i = 0; i<bullets.length; i++); { 
+                bullets[i].position.x += bullets[i].speed; 
+            }
+        }
+        } 
         function gameLoop(){
+            updateBullets();
             //Z makes the player go up the screen by increasing the y position by 5 every tick.
             if (keys["90"]) {
                 jump()
@@ -93,6 +100,6 @@ let keys = {};
             if (keys["39"]) {
                 avatar.x += 5;
             }
-        }
 
-    }
+            }
+
