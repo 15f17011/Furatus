@@ -57,7 +57,6 @@ let bullets = [];
 let bulletSpeed = 10;
 
 function fire() {
-    //add shooting function here
     console.log("Fire!");
     let bullet = createBullet();
     bullets.push(bullet);
@@ -75,22 +74,47 @@ function createBullet() { // is responsible for creating the bullets
 
 function updateBullets() {
     for (let i = 0; i < bullets.length; i++) {
-        bullets[i].position.x += bullets[i].speed;
+        bullets[i].position.x += bullets[i].speed; //bullets move to the right when x is pressed
 
-        if(bullets[i].position.x > 800) {
-            bullets[i].dead = true;
+        function resetObservation() {
+            let observationStartPoint = null;
+            let observationDistance = 0;
+            let observationCallback = () => {};
+    
         }
-    }
+    
+        function observeDistance(distance, callback) {
+            observationStartPoint = avatar.x;
+            observationDistance = distance;
+            observationCallback = callback;
+        }
+
+        if (this.observationDistance > 0){
+            let diff = Math.abs(bullet.x - observationStartPoint);
+            if (diff > observationDistance) {
+                    observationCallback();
+                    resetObservation();
+                  }
+                }
+            }
+        }    
+
+        observeDistance(150, () => {
+            bullets[i].dead = true; //bullets are dead when they leave the stage
+        }) 
+        
+
+    
 
     
     for(let i = 0; i < bullets.length; i++) {
         if (bullets[i].dead) {
-            app.stage.removeChild(bullets[i]);
-            bullets.splice(i, 1);
+            app.stage.removeChild(bullets[i]); //removes dead bullets from stage
+            bullets.splice(i, 1); //removes dead bullets from array
         }
 
     }
-}
+
 
 function gameLoop() {
     updateBullets();
