@@ -53,14 +53,26 @@ function jump() {
     }, 20)
 }
 
-let bullets = [];
+let bullets = []; //create an empty array to store bullets in
+let leftBullets = [];
 let bulletSpeed = 10;
+let leftBulletSpeed = -10
 
 function fire() {
     console.log("Fire!");
     let bullet = createBullet();
     bullets.push(bullet);
 }
+
+function leftFire() {
+    console.log("Left Fire!");
+    let leftBullet = createBullet();
+    bullets.push(leftBullet);
+}
+    
+
+
+    
 function createBullet() { // is responsible for creating the bullets
     let bullet = new PIXI.Sprite.from("assets/protagbullet.png");
     bullet.anchor.set(0.5);
@@ -72,9 +84,24 @@ function createBullet() { // is responsible for creating the bullets
     return bullet;
 }
 
+function createLeftBullet() { //will create bullets fired behind the player
+    let leftBullet = new PIXI.Sprite.from("assets/protagbullet.png");
+    leftBullet.anchor.set(0.5);
+    leftBullet.x = avatar.x;
+    leftBullet.y = avatar.y;
+    leftBullet.speed= leftBulletSpeed;
+
+    return leftBullet;
+
+}
+
 function updateBullets() {
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].position.x += bullets[i].speed; //bullets move to the right when x is pressed
+
+    for (let i= 0); i < leftBullets.length; i++) { //bullets fired to the left 
+        leftBullets[i].position.x += leftBullets[i].speed;
+    }
 
         function resetObservation() {
             let observationStartPoint = null;
@@ -115,6 +142,17 @@ function updateBullets() {
 
     }
 
+function areKeysBeingPressed(arr) {
+      for(key of arr) {
+        if(!keys[key]) {
+           return false;
+        }
+    }
+
+    return true;
+}
+const allKeys = areKeysBeingPressed(["88", "37"]);
+
 
 function gameLoop() {
     updateBullets();
@@ -126,6 +164,10 @@ function gameLoop() {
     if (keys["88"]) {
         fire()
     }
+    if (allKeys = true) {
+        leftFire()
+    }
+    //left arrow and x
     //Left arrow
     if (keys["37"]) {
         avatar.x -= 5;
