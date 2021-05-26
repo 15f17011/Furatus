@@ -102,33 +102,13 @@ function updateBullets() {
         bullets[i].x += bullets[i].speed; //bullets move to the right when x is pressed
     }
     
-    for (let i = 0; i < bullets.length; i++) {
-        if(bullets[i].x - bullets[i].startx > 800) {
-            bullets[i].dead = true
-        }
-    }
-    for(let i = 0; i < bullets.length; i++) {
-        if (bullets[i].dead) {
-            app.stage.removeChild(bullets[i]); //removes dead bullets from stage
-            bullets.splice(i, 1); //removes dead bullets from array
-        }
-    }
+    bullets = bullets.filter(b => (b.x - b.startx)>800)
 
     for (let i= 0; i < leftBullets.length; i++) { //bullets fired to the left 
         leftBullets[i].x += leftBullets[i].speed;
     }
     
-    for (let i = 0; i < bullets.length; i++) {
-        if(leftBullets[i].x - leftBullets[i].startx > 800) {
-            leftBullets[i].dead = true
-        }
-    }
-    for(let i = 0; i < leftBullets.length; i++) {
-        if (leftBullets[i].dead) {
-            app.stage.removeChild(leftBullets[i]);
-            leftBullets.splice(i, 1);
-        }
-    }
+    leftBullets = leftBullets.filter(b => (b.x - b.startx)>800)
 
 }
 
@@ -157,7 +137,7 @@ function gameLoop() {
     /* if (allKeys = true) {
         leftFire() 
     } */
-    
+
     //Left arrow
     if (keys["37"]) {
         avatar.x -= 5;
