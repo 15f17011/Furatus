@@ -54,8 +54,10 @@ function jump() {
 }
 
 let bullets = []; //create an empty array to store bullets in
-let leftBullets = [];
 let bulletSpeed = 10;
+let bulletStartx;
+let leftBullets = [];
+let leftBulletStartx
 let leftBulletSpeed = -10
 
 function fire() {
@@ -76,6 +78,7 @@ function leftFire() {
 function createBullet() { // is responsible for creating the bullets
     let bullet = new PIXI.Sprite.from("assets/protagbullet.png");
     bullet.anchor.set(0.5);
+    bulletStartx = avatar.x;
     bullet.x = avatar.x;
     bullet.y = avatar.y;
     bullet.speed = bulletSpeed;
@@ -87,6 +90,7 @@ function createBullet() { // is responsible for creating the bullets
 function createLeftBullet() { //will create bullets fired behind the player
     let leftBullet = new PIXI.Sprite.from("assets/protagbullet.png");
     leftBullet.anchor.set(0.5);
+    leftBulletStartx = avatar.x;
     leftBullet.x = avatar.x;
     leftBullet.y = avatar.y;
     leftBullet.speed= leftBulletSpeed;
@@ -97,38 +101,13 @@ function createLeftBullet() { //will create bullets fired behind the player
 
 function updateBullets() {
     for (let i = 0; i < bullets.length; i++) {
-        bullets[i].position.x += bullets[i].speed; //bullets move to the right when x is pressed
+        bullets[i].x += bullets[i].speed; //bullets move to the right when x is pressed
 
-    for (let i= 0); i < leftBullets.length; i++) { //bullets fired to the left 
-        leftBullets[i].position.x += leftBullets[i].speed;
+    for (let i= 0; i < leftBullets.length; i++) { //bullets fired to the left 
+        leftBullets[i].x += leftBullets[i].speed;
     }
 
-        function resetObservation() {
-            let observationStartPoint = null;
-            let observationDistance = 0;
-            let observationCallback = () => {};
-    
-        }
-    
-        function observeDistance(distance, callback) {
-            observationStartPoint = avatar.x;
-            observationDistance = distance;
-            observationCallback = callback;
-        }
-
-        if (this.observationDistance > 0){
-            let diff = Math.abs(bullet.x - observationStartPoint);
-            if (diff > observationDistance) {
-                    observationCallback();
-                    resetObservation();
-                  }
-                }
-            }
-        }    
-
-        observeDistance(150, () => {
-            bullets[i].dead = true; //bullets are dead when they leave the stage
-        }) 
+}
         
 
     
@@ -151,11 +130,11 @@ function areKeysBeingPressed(arr) {
 
     return true;
 }
-const allKeys = areKeysBeingPressed(["88", "37"]);
 
 
 function gameLoop() {
     updateBullets();
+    const allKeys = areKeysBeingPressed(["88", "37"]);
     //Z makes the player go up the screen by increasing the y position by 5 every tick.
     if (keys["90"]) {
         jump()
