@@ -56,7 +56,7 @@ function jump() {
 let bullets = []; //create an empty array to store bullets in
 let bulletSpeed = 10;
 let leftBullets = [];
-let leftBulletSpeed = -10
+let leftBulletSpeed = -10;
 
 function fire() {
     console.log("Fire!");
@@ -64,11 +64,11 @@ function fire() {
     bullets.push(bullet);
 }
 
-function leftFire() {
+/*function leftFire() {
     console.log("Left Fire!");
     let leftBullet = createBullet();
-    bullets.push(leftBullet);
-}
+    leftBullets.push(leftBullet);
+} */
     
 
 
@@ -85,7 +85,7 @@ function createBullet() { // is responsible for creating the bullets
     return bullet;
 }
 
-function createLeftBullet() { //will create bullets fired behind the player
+/*function createLeftBullet() { //will create bullets fired behind the player
     let leftBullet = new PIXI.Sprite.from("assets/protagbullet.png");
     leftBullet.anchor.set(0.5);
     leftBullet.startx = avatar.x;
@@ -95,24 +95,23 @@ function createLeftBullet() { //will create bullets fired behind the player
 
     return leftBullet;
 
-}
+} */
 
 function updateBullets() {
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].x += bullets[i].speed; //bullets move to the right when x is pressed
     }
-    
-    bullets = bullets.filter(b => (b.x - b.startx)>800)
+    bullets = bullets.filter(b => (b.x - b.startx)>800) //THIS IS WHAT IS STOPPING BULLET FIRE
 
-    for (let i= 0; i < leftBullets.length; i++) { //bullets fired to the left 
+    /* for (let i= 0; i < leftBullets.length; i++) { //bullets fired to the left 
         leftBullets[i].x += leftBullets[i].speed;
     }
     
-    leftBullets = leftBullets.filter(b => (b.x - b.startx)>800)
+    leftBullets = leftBullets.filter(b => (b.x - b.startx)>800) */
 
 }
 
-function areKeysBeingPressed(arr) {
+/* function areKeysBeingPressed(arr) {
       for(key of arr) {
         if(!keys[key]) {
            return false;
@@ -120,12 +119,12 @@ function areKeysBeingPressed(arr) {
     }
 
     return true;
-}
+} */
 
 
 function gameLoop() {
     updateBullets();
-    const allKeys = areKeysBeingPressed(["88", "37"]);
+    //const allKeys = areKeysBeingPressed(["88", "37"]);
     //Z makes the player go up the screen by increasing the y position by 5 every tick.
     if (keys["90"]) {
         jump()
