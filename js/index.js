@@ -64,11 +64,11 @@ function fire() {
     bullets.push(bullet);
 }
 
-/*function leftFire() {
+function leftFire() {
     console.log("Left Fire!");
     let leftBullet = createBullet();
     leftBullets.push(leftBullet);
-} */
+} 
     
 
 
@@ -111,7 +111,7 @@ function updateBullets() {
 
 }
 
-/* function areKeysBeingPressed(arr) {
+function areKeysBeingPressed(arr) {
       for(key of arr) {
         if(!keys[key]) {
            return false;
@@ -119,12 +119,10 @@ function updateBullets() {
     }
 
     return true;
-} */
-
+} 
 
 function gameLoop() {
     updateBullets();
-    //const allKeys = areKeysBeingPressed(["88", "37"]);
     //Z makes the player go up the screen by increasing the y position by 5 every tick.
     if (keys["90"]) {
         jump()
@@ -133,9 +131,9 @@ function gameLoop() {
     if (keys["88"]) {
         fire()
     }
-    /* if (allKeys = true) {
+    if (areKeysBeingPressed(["88", "37"]) == true) {
         leftFire() 
-    } */
+    } 
 
     //Left arrow
     if (keys["37"]) {
