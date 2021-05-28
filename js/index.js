@@ -56,7 +56,7 @@ function jump() {
 let bullets = []; //create an empty array to store bullets in
 let bulletSpeed = 10;
 let leftBullets = [];
-let leftBulletSpeed = -10;
+let leftBulletSpeed = 10;
 
 function fire() {
     console.log("Fire!");
@@ -68,11 +68,8 @@ function leftFire() {
     console.log("Left Fire!");
     let leftBullet = createBullet();
     leftBullets.push(leftBullet);
-} 
-    
+}
 
-
-    
 function createBullet() { // is responsible for creating the bullets
     let bullet = new PIXI.Sprite.from("assets/protagbullet.png");
     bullet.anchor.set(0.5);
@@ -85,41 +82,42 @@ function createBullet() { // is responsible for creating the bullets
     return bullet;
 }
 
-/*function createLeftBullet() { //will create bullets fired behind the player
+function createLeftBullet() { //will create bullets fired behind the player
     let leftBullet = new PIXI.Sprite.from("assets/protagbullet.png");
     leftBullet.anchor.set(0.5);
     leftBullet.startx = avatar.x;
     leftBullet.x = avatar.x;
     leftBullet.y = avatar.y;
-    leftBullet.speed= leftBulletSpeed;
+    leftBullet.speed = leftBulletSpeed;
 
     return leftBullet;
 
-} */
+}
 
 function updateBullets() {
     for (let i = 0; i < bullets.length; i++) {
         bullets[i].x += bullets[i].speed; //bullets move to the right when x is pressed
-    }
-    bullets = bullets.filter(b => (b.x - b.startx)>800) //THIS IS WHAT IS STOPPING BULLET FIRE
+        if (bullets[i].x > 800) {
+            bullets[i].dead = true;
+        }
+        if (bullets[i].dead) { //removes bullets that are out of screen.
+            app.stage.removeChild(bullets[i]);
+            bullets.splice(i, 1);
 
-    /* for (let i= 0; i < leftBullets.length; i++) { //bullets fired to the left 
-        leftBullets[i].x += leftBullets[i].speed;
-    }
-    
-    leftBullets = leftBullets.filter(b => (b.x - b.startx)>800) */
-
-}
-
-function areKeysBeingPressed(arr) {
-      for(key of arr) {
-        if(!keys[key]) {
-           return false;
         }
     }
+    for (let i = 0; i < leftBullets.length; i++) { //bullets fired to the left 
+        leftBullets[i].x -= leftBullets[i].speed;
+        if (leftBullets[i].x < 0) {
+            leftBullets.ldead = true;
+        }
+        if (leftBullets[i].ldead) {
+            app.stage.removeChild(leftBullets[i]);
+            leftBullets.splice(i, 1);
+        }
+    }
+}
 
-    return true;
-} 
 
 function gameLoop() {
     updateBullets();
@@ -128,12 +126,12 @@ function gameLoop() {
         jump()
     }
     //X          
-    if (keys["88"]) {
+    if (keys["67"]) {
         fire()
     }
-    if (areKeysBeingPressed(["88", "37"]) == true) {
-        leftFire() 
-    } 
+    if (keys["88"]) {
+        leftFire()
+    }
 
     //Left arrow
     if (keys["37"]) {
