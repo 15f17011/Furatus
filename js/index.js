@@ -56,15 +56,12 @@ let bullets = []; //create an empty array to store bullets in
 let bulletSpeed = 10;
 let leftBullets = [];
 let leftBulletSpeed = -10;
-let recentBullets = 0;
+let lastBulletTime = 0;
 
 function fire(left) {
     console.log("Fire!");
     let bullet = createBullet(left);
     bullets.push(bullet);
-    recentBullets += 1;
-
-
 }
 
 function createBullet(left) { // is responsible for creating the bullets
@@ -105,19 +102,19 @@ function gameLoop() {
     }
     //X          
     if (keys["67"]) {
-        if (recentBullets > 5) {
-            setTimeout(function () { recentBullets = 0}, 2000)
-        }
-        else {
+        let now = Date.now();
+
+        if ((now - lastBulletTime) > 100) {
             fire(false);
+            lastBulletTime = now;
         }
     }
     if (keys["88"]) {
-        if (recentBullets > 5) {
-            setTimeout(function () { recentBullets = 0}, 2000)
-        }
-        else {
+        let now = Date.now();
+
+        if ((now - lastBulletTime) > 100) {
             fire(true);
+            lastBulletTime = now;
         }
     }
 
