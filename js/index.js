@@ -48,8 +48,7 @@ function jump() {
             }, 20)
         }
         isJumping = true
-        avatar.y -= 5
-        avatar.y = avatar.y * gravity //gradually decreases the height following a jump
+        avatar.y -= 10 //gradually decreases the height following a jump
     }, 20)
 }
 
@@ -57,11 +56,15 @@ let bullets = []; //create an empty array to store bullets in
 let bulletSpeed = 10;
 let leftBullets = [];
 let leftBulletSpeed = -10;
+let recentBullets = 0;
 
 function fire(left) {
     console.log("Fire!");
     let bullet = createBullet(left);
     bullets.push(bullet);
+    recentBullets += 1;
+
+
 }
 
 function createBullet(left) { // is responsible for creating the bullets
