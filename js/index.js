@@ -96,7 +96,13 @@ function updateBullets() {
         }
     }
 }
-
+function wait(milliseconds) { //no native sleep function in javascript so had to make one.
+    const date = Date.now(); //Date method returns number of milliseconds since 1/1/1970
+    let theDate = null;
+    do {
+      currentDate = Date.now();
+    } while (theDate - date < milliseconds);
+  }
 
 function gameLoop() {
     updateBullets();
@@ -106,9 +112,19 @@ function gameLoop() {
     }
     //X          
     if (keys["67"]) {
-        fire(false);
+        if (recentBullets > 5) {
+            wait(2000)
+            recentBullets = 0;
+        }
+        else {
+            fire(false);
+        }
     }
     if (keys["88"]) {
+        if (recentBullets > 5) {
+            wait(2000)
+            recentBullets = 0;
+        }
         fire(true);
     }
 
