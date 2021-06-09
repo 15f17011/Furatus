@@ -40,7 +40,7 @@ function jump() {
         if (avatar.y < 450) {
             clearInterval(timerUpID) // stops permanent jumping 
             let timerDownID = setInterval(function () {
-                if (avatar.y > 570) {
+                if (avatar.y > 562) {
                     clearInterval(timerDownID) //stops permanent fall
                     isJumping = false
                 }
@@ -102,17 +102,18 @@ function gameLoop() {
     }
     //X          
     if (keys["67"]) {
-        let now = Date.now();
+        let now = Date.now(); //number of milliseconds since 1/1/1970
 
-        if ((now - lastBulletTime) > 100) {
+        if ((now - lastBulletTime) > 300) { //lastBulletTime is initially 0, so this will always fire straight away
             fire(false);
-            lastBulletTime = now;
+            lastBulletTime = now; //updates the last time a bullet was fired.
         }
     }
+    //C
     if (keys["88"]) {
         let now = Date.now();
 
-        if ((now - lastBulletTime) > 100) {
+        if ((now - lastBulletTime) > 300) {
             fire(true);
             lastBulletTime = now;
         }
