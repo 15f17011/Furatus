@@ -1,4 +1,24 @@
 let avatar;
+var Engine = Matter.Engine,
+  Render = Matter.Render,
+  World = Matter.World,
+  Bodies = Matter.Bodies,
+  Body = Matter.Body;
+
+var engine = Engine.create();
+
+var bottomWall = Bodies.rectangle(400, 350, 720, 20, { isStatic: true });
+
+var avatar = Bodies.rectangle(90, 120, 40, 40);
+
+class GameObject{
+    constructor(pixiData, matterData) {
+        this.pixiData = pixiData;
+        this.matterData = matterData;
+    }
+}
+
+let protagonist = new GameObject(PIXI.Sprite.from("assets/protagonist.png"), Bodies.rectangle(700, 120, 10, 40))
 let app = new PIXI.Application(
     {
         width: 800,
@@ -34,7 +54,7 @@ function keysUp(e) {
 
 let gravity = 0.9
 let isJumping = false //prevents double jump 
-function jump() {
+/*function jump() {
     if (isJumping) return
     let timerUpID = setInterval(function () { //the setInterval method allows me to create a function that runs every certain interval of time
         if (avatar.y < 450) {
@@ -50,7 +70,7 @@ function jump() {
         isJumping = true
         avatar.y -= 10 //gradually decreases the height following a jump
     }, 20)
-}
+} */
 
 let bullets = []; //create an empty array to store bullets in
 let bulletSpeed = 10;
@@ -98,7 +118,7 @@ function gameLoop() {
     updateBullets();
     //Z makes the player go up the screen by increasing the y position by 5 every tick.
     if (keys["90"]) {
-        jump()
+        Body.setVelocity( avatar, {x: 0, y: -10});
     }
     //X          
     if (keys["67"]) {
