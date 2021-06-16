@@ -1,3 +1,5 @@
+import * as Matter from 'matter-js';
+
 let avatar;
 var Engine = Matter.Engine,
   Render = Matter.Render,
@@ -6,10 +8,7 @@ var Engine = Matter.Engine,
   Body = Matter.Body;
 
 var engine = Engine.create();
-
 var bottomWall = Bodies.rectangle(400, 350, 720, 20, { isStatic: true });
-
-var avatar = Bodies.rectangle(90, 120, 40, 40);
 
 class GameObject{
     constructor(pixiData, matterData) {
@@ -18,7 +17,9 @@ class GameObject{
     }
 }
 
-let protagonist = new GameObject(PIXI.Sprite.from("assets/protagonist.png"), Bodies.rectangle(700, 120, 10, 40))
+let protagonist = new GameObject(PIXI.Sprite.from("assets/protagonist.png"), Bodies.rectangle(27, 570, 50, 50))
+World.add(engine.world, [bottomWall, box]);
+
 let app = new PIXI.Application(
     {
         width: 800,
@@ -29,12 +30,8 @@ let app = new PIXI.Application(
 document.body.appendChild(app.view);
 
 //creating an avatar for the player
-avatar = new PIXI.Sprite.from("assets/protagonist.png");
-avatar.anchor.set(0.5);
-avatar.x = 27
-avatar.y = 570
-
-app.stage.addChild(avatar);
+protagonist.anchor.set(0.5);
+app.stage.addChild(protagonist);
 
 let keys = {};
 //keyboard event handlers
