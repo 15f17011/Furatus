@@ -1,5 +1,3 @@
-import * as Matter from 'matter-js';
-
 let avatar;
 var Engine = Matter.Engine,
   Render = Matter.Render,
@@ -18,7 +16,7 @@ class GameObject{
 }
 
 let protagonist = new GameObject(PIXI.Sprite.from("assets/protagonist.png"), Bodies.rectangle(27, 570, 50, 50))
-World.add(engine.world, [bottomWall, box]);
+World.add(engine.world, [bottomWall]);
 
 let app = new PIXI.Application(
     {
@@ -29,9 +27,9 @@ let app = new PIXI.Application(
 );
 document.body.appendChild(app.view);
 
-//creating an avatar for the player
-protagonist.anchor.set(0.5);
-app.stage.addChild(protagonist);
+//creating an avatar for the player (currently causing errors)
+//protagonist.anchor.set(0.5);
+//app.stage.addChild(protagonist);
 
 let keys = {};
 //keyboard event handlers
